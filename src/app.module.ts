@@ -1,8 +1,6 @@
 import { Module } from '@nestjs/common';
 import { PrismaClient } from '@prisma/client';
 import { TaskCrudResolver } from '@generated/type-graphql';
-import { TaskResolver } from 'src/task/task.resolver';
-import { TaskService } from 'src/task/task.service';
 import { TypeGraphQLModule } from 'typegraphql-nestjs';
 import { AppService } from './app.service';
 import { AppResolver } from 'src/app.resolver';
@@ -20,13 +18,8 @@ export const prisma = new PrismaClient();
       validate: false,
       context: (): { prisma: PrismaClient } => ({ prisma }),
     }),
+    TaskModule,
   ],
-  providers: [
-    TaskResolver,
-    TaskService,
-    AppService,
-    AppResolver,
-    TaskCrudResolver,
-  ],
+  providers: [AppService, AppResolver, TaskCrudResolver],
 })
 export class AppModule {}
